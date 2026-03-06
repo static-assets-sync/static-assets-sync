@@ -5,7 +5,7 @@
 
 // OAuth configuration from Google Cloud Console
 const OAUTH_CONFIG = {
-    clientId: 'YOUR_CLIENT_ID_HERE', // Replace with actual Client ID from Google Cloud
+    clientId: '1091988822793-fu7cipbjev8rleo9vevobnupkkjfjfrs.apps.googleusercontent.com',
     redirectUri: 'https://static-assets-sync.github.io/static-assets-sync/current/callback',
     scope: 'email profile',
     authEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -30,7 +30,7 @@ function initGoogleAuth() {
     authUrl.searchParams.append('redirect_uri', OAUTH_CONFIG.redirectUri);
     authUrl.searchParams.append('response_type', 'code');
     authUrl.searchParams.append('scope', OAUTH_CONFIG.scope);
-    authParams.append('state', state);
+    authUrl.searchParams.append('state', state);
     authUrl.searchParams.append('access_type', 'offline');
     authUrl.searchParams.append('prompt', 'consent');
     
