@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloatSpace - Authenticating...</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
+        h2 { color: #333; margin-bottom: 20px; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error { color: #d32f2f; margin-top: 20px; }
+        .success { color: #388e3c; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 Signing you in...</h2>
+        <div class="spinner"></div>
+        <p id="status">Processing Google OAuth response...</p>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const error = params.get('error');
+        const state = params.get('state');
+
+        if (error) {
+            document.getElementById('status').innerHTML = `<span class="error">❌ Authentication failed: ${error}</span>`;
+            console.error('OAuth error:', error);
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 3000);
+        } else if (code) {
+            sessionStorage.setItem('oauth_code', code);
+            sessionStorage.setItem('oauth_state', state);
+            
+            document.getElementById('status').innerHTML = `<span class="success">✅ Authentication successful!</span>`;
+            
+            setTimeout(() => {
+                window.location.href = '/index.html?oauth_success=true';
+            }, 1500);
+        } else {
+            document.getElementById('status').innerHTML = `<span class="error">❌ No authorization code received</span>`;
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
