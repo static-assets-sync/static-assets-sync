@@ -6,7 +6,7 @@
 // OAuth configuration from Google Cloud Console
 const OAUTH_CONFIG = {
     clientId: '1091988822793-fu7cipbjev8rleo9vevobnupkkjfjfrs.apps.googleusercontent.com',
-    redirectUri: 'https://static-assets-sync.github.io/callback',
+    redirectUri: 'https://static-assets-sync.github.io/core-dependencies/callback',
     scope: 'email profile',
     authEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth'
 };
